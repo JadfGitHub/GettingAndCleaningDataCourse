@@ -37,9 +37,12 @@ names(X_train_s)[1]<-"Subject"
 #merge X_test and X_train to form "X_complete" using rbind function
 X_complete<-rbind(X_train_s,X_test_s)
 
-#name activites
-
 #extract only measurements on mean and standard deviation
+meanVars<-grep("mean()",names(X_complete))
+stdVars<-grep("std()",names(X_complete))
+RelevantVars<-c(1,meanVars,stdVars)
+
+X_tidy<-X_complete[,RelevantVars]
 
 #export tidy dataset text file
-write.table(X_complete, "./Course_Project_TidyData.txt", sep="\t") 
+write.table(X_tidy, "./Course_Project_TidyData.txt", sep="\t") 
